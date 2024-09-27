@@ -1,0 +1,16 @@
+      program testfarray
+
+      integer sets
+      double precision
+      parameter (sets = 59, xpdfmax = 13*(sets-1)+6)
+      double precision ar(-6:xpdfmax)
+
+      integer i
+      do i=-6, xpdfmax
+         ar(i) = i
+      enddo
+
+      write (*,*) (ar(i), i= -6, xpdfmax)
+      
+      end
+      

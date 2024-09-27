@@ -1,0 +1,49 @@
+11/10/17 - version 1.2.1
+Added makefile.scl for use with Redhat/Scientific Linux devtools
+Modified vsup.f and cteqpdflibfast.f to be more compatible with gfortran 6+
+
+
+1/25/16 - version 1.2
+Added ZTOPschanLHA.x and ZTOPtchanLHA.x which tie into the LHAPDF interface.
+  The input files for LHA runs require the PDF name and set number in place
+  of the old versions CTEQ set number.
+  Ie.: 58 		! pdf set CTEQ 4,5,6    becomes
+       CT14nlo   0 	! lhapdf_set number
+Support files were created for LHA program: pftopdg.f, alphas2.f
+LHAPDF must be linked in (edit the makefile appropriately).
+
+
+7/24/08 - version 1.1
+Improved efficiency of one angular integration.  Distribution in phi of
+  small angles between t and j1 is larger by factor of 2 in LOW statistics
+  test files.
+
+
+1/27/05 - version 1.0
+This version now fully generates all angular dependence.  Previously, the
+  event was fixed to have 1 particle in the y direction, since the overall
+  events are symmetric in phi.  This eliminated 1 integration variable.  All
+  integration variables have been put back in to facilitate comparison with
+  other codes.  This required minor changes in (most files):
+    tmain.f, tevent_lo2.f, tevent_nlo2.f, tevent_nlo3.f,
+    smain.f, sevent_lo2.f, sevent_nlo2.f, sevent_nlo3.f
+README.TXT  updated reference.
+
+
+11/12/04 - version 0.2
+vsup.f  Changed formatting statement of output to WHERE.AMI to prevent crashes
+  with Intel compiler v. 8.1.
+makefile  Added flags for Intel compiler 8.1 to specify new Pentium 4
+  optimizations.
+
+
+8/26/04 - version 0.1
+cteqpdflibfast.f added checks inside structm5 and structm6 that set pieces to
+  0d0 if they are < 0d0.  This is to exactly match what is done on the base
+  CTEQ5/6, but only arises if x ~ 0.99, so is not generally an issue.  Note
+  that this means structm may be returning negative values for some pieces,
+  e.g. d_v = -d_s, but d_v+d_s >= 0.  So unless different rounding schemes are
+  used in different places, this should be OK.  This is not a bug.
+
+  Consequences:
+  Does not effect ZTOP at all, but allows more portability of cteqpdflibfast.f.

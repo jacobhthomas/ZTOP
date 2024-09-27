@@ -1,0 +1,86 @@
+# for use with Intel compiler < 8
+#F77=ifc
+#FFLAGS= -O3 -tpp7 -xW -ip -w90 -w95 -132
+# for use with Intel compiler >= 8, Pentium 4 or newer
+F77=ifort
+FFLAGS= -O3 -xN -ip -w90 -w95 -132 
+#FFLAGS= -O3 -tpp7 -xN -ip -w90 -w95 -132 -i_dynamic
+# for use with PIII
+#FFLAGS= -O3 -tpp6 -axK -ip -w90 -w95 -132
+
+# for use with g77
+#F77=g77
+#FFLAGS= -O3 -mcpu=i686 -malign-double -funroll-loops -w
+
+F77=gfortran
+#FFLAGS= -O3 -march=native -malign-double -funroll-loops -Wall -msse2 -fno-automatic -finit-local-zero -ffixed-line-length-none
+FFLAGS= -m64 -O3 -ffast-math -march=native -funroll-loops -Wall -msse2 -fno-automatic -finit-local-zero -ffixed-line-length-none -Wno-unused -Wno-unused-dummy-argument -Wno-tabs -Wno-integer-division -pg
+
+LINK=$(F77)
+LFLAGS= $(FFLAGS)
+LHAFLAGS=`lhapdf-config -ldflags`
+
+LIBS = vsup.o dilog.o histlib.o cteqpdflibfast.o
+
+LIBSLHA = vsup.o dilog.o histlib.o pftopdg.o alphas2.o
+#cteqpdflibfast.o
+
+COMMONOBJ = misc.o lum.o smearing.o jetfinder1.o 
+
+SOBJECTS = smain.o sevent_lo2.o ssig_lo2.o sevent_nlo2.o ssig_nlo2.o sevent_nlo3.o ssig_nlo3.o scuts.o shist.o
+
+TOBJECTS = tmain.o tevent_lo2.o tsig_lo2.o tevent_nlo2.o tsig_nlo2.o tevent_nlo3.o tsig_nlo3.o tcuts.o thist.o
+
+SOBJECTSLHA = smainlha.o sevent_lo2.o ssig_lo2.o sevent_nlo2.o ssig_nlo2.o sevent_nlo3.o ssig_nlo3.o scuts.o shist.o
+
+TOBJECTSLHA = tmainlha.o tevent_lo2.o tsig_lo2.o tevent_nlo2.o tsig_nlo2.o tevent_nlo3.o tsig_nlo3.o tcuts.o thist.o
+
+TOBJECTSPDF = tmainpdf.o tevent_lo2.o tsig_lo2pdf.o tevent_nlo2.o tsig_nlo2pdf.o tevent_nlo3.o tsig_nlo3pdf.o tcuts.o thist.o
+#LIBSPDF = vsuppdf.o dilog.o histlib.o cteqpdflibfast.o
+LIBSPDF = vsuppdf.o dilog.o histlib.o pftopdg.o alphas2cteq.o partonx12structmMulti.o texture.o parton.o polint.o
+
+TEXTUREFILE = initializetexture.cu
+#POLINTFILE  = polint.cu
+POLINTFILE  = polintmod.cu
+PARTFILE = partx12.cu
+
+TOBJECTSERR = tmainpdf.o tevent_lo2.o tsig_lo2err.o tevent_nlo2.o tsig_nlo2pdf.o tevent_nlo3.o tsig_nlo3pdf.o tcuts.o thist.o
+LIBSERR = vsuppdf.o dilog.o histlib.o pftopdg.o alphas2cteq.o partonx12structmMulti.o texture.o parton.o polint.o pftopdgn.o
+
+
+ZTOPtchanPDF.x: $(TOBJECTSPDF) $(COMMONOBJ) $(LIBSPDF)
+	$(LINK) $(LFLAGS) -o ZTOPtchanPDF.x $(TOBJECTSPDF) $(COMMONOBJ) $(LIBSPDF) -lstdc++ -L/usr/local/cuda/lib64 -lcudart
+
+ZTOPtchanERR.x: $(TOBJECTSERR) $(COMMONOBJ) $(LIBSERR)
+	$(LINK) $(LFLAGS) -o ZTOPtchanERR.x $(TOBJECTSERR) $(COMMONOBJ) $(LIBSERR) -lstdc++ -L/usr/local/cuda/lib64 -lcudart
+
+
+all: ZTOPschan.x ZTOPtchan.x ZTOPschanLHA.x ZTOPtchanLHA.x
+
+.f.o: ; $(F77) $(FFLAGS) -c $*.f
+
+ZTOPschanLHA.x: $(SOBJECTSLHA) $(COMMONOBJ) $(LIBSLHA)
+	$(LINK) $(LFLAGS) -o ZTOPschanLHA.x $(SOBJECTSLHA) $(COMMONOBJ) $(LIBSLHA) $(LHAFLAGS) 
+
+ZTOPtchanLHA.x: $(TOBJECTSLHA) $(COMMONOBJ) $(LIBSLHA)
+	$(LINK) $(LFLAGS) -o ZTOPtchanLHA.x $(TOBJECTSLHA) $(COMMONOBJ) $(LIBSLHA) $(LHAFLAGS) 
+
+ZTOPschan.x: $(SOBJECTS) $(COMMONOBJ) $(LIBS)
+	$(LINK) $(LFLAGS) -o ZTOPschan.x $(SOBJECTS) $(COMMONOBJ) $(LIBS) 
+
+ZTOPtchan.x: $(TOBJECTS) $(COMMONOBJ) $(LIBS)
+	$(LINK) $(LFLAGS) -o ZTOPtchan.x $(TOBJECTS) $(COMMONOBJ) $(LIBS) 
+
+
+texture.o: $(TEXTUREFILE) makefile
+	nvcc -g -o texture.o -c $(TEXTUREFILE) -pg
+
+polint.o: $(POLINTFILE) makefile
+	nvcc -g -o polint.o -c $(POLINTFILE) -pg
+
+parton.o: $(PARTFILE) makefile
+	nvcc -g -o parton.o -c $(PARTFILE) -pg
+
+
+clean:
+	rm -f *.o *.il core *~ *.x work.pc*

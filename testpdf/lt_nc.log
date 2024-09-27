@@ -1,0 +1,215 @@
+ 
+                   ====== ======= ====== ======     =======
+                       /     |    |    | |    |        |   
+                      /      |    |    | |    |        |   
+                     /       |    |    | |====  ----   |   
+                    /        |    |    | |             |   
+                   ======    |    ====== |             |   
+ 
+                    t-channel single-top-quark production  
+                       Copyright 2001, by Zack Sullivan    
+ Version 1.2.1 PDF
+ 
+ Based on: 1. B.W. Harris, E. Laenen, L. Phaf, Z. Sullivan, and S. Weinzierl,
+               Phys. Rev. D 66, 054024 (2002) [arXiv:hep-ph/0207055].
+           2. Zack Sullivan, Phys. Rev. D 70, 114012 (2004)
+               [arXiv:hep-ph/0408049].
+ 
+ Input parameters:
+ norder    =            0
+ iscale_fl =            6
+ isclf     =            0
+ iscaleb_fh=            7
+ isclfb    =            0
+ irscale_rl=            6
+ irsclf    =            0
+ irscaleb_rh=            7
+ irsclfb   =            0
+ its1      =            5
+ pts1      =        10000
+ its2      =            5
+ pts2      =        20000
+ its3      =            6
+ pts3      =       200000
+ top mass  =    175.00000000000000     
+ w mass    =    80.400000000000006     
+ ecm       =    1.9600000000000000     
+ icollide  =            2
+ iset      =           53
+ itop      =            1
+ iatop     =            0
+ rcone     =    1.0000000000000000     
+ rsep      =    1.0000000000000000     
+ cutflag   =            0
+ smearing  =            0
+ id        =            2
+ imin      =            6
+ imax      =            6
+ afac      =    300.00000000000000     
+ pref      = lt_                                     
+ No smearing.
+  
+ sqrt(S) =    1960.0000000000000     
+  
+ CKM matrix Vij
+   0.9751  0.2215  0.0035
+   0.2210  0.9743  0.0410
+   0.0000  0.0000  1.0000
+  
+ CT18NLO-pds/i2Tn2.00.pds                
+ CT18NLO-pds/i2Tn2.01.pds                
+ CT18NLO-pds/i2Tn2.02.pds                
+ CT18NLO-pds/i2Tn2.03.pds                
+ CT18NLO-pds/i2Tn2.04.pds                
+ CT18NLO-pds/i2Tn2.05.pds                
+ CT18NLO-pds/i2Tn2.06.pds                
+ CT18NLO-pds/i2Tn2.07.pds                
+ CT18NLO-pds/i2Tn2.08.pds                
+ CT18NLO-pds/i2Tn2.09.pds                
+ CT18NLO-pds/i2Tn2.10.pds                
+ CT18NLO-pds/i2Tn2.11.pds                
+ CT18NLO-pds/i2Tn2.12.pds                
+ CT18NLO-pds/i2Tn2.13.pds                
+ CT18NLO-pds/i2Tn2.14.pds                
+ CT18NLO-pds/i2Tn2.15.pds                
+ CT18NLO-pds/i2Tn2.16.pds                
+ CT18NLO-pds/i2Tn2.17.pds                
+ CT18NLO-pds/i2Tn2.18.pds                
+ CT18NLO-pds/i2Tn2.19.pds                
+ CT18NLO-pds/i2Tn2.20.pds                
+ CT18NLO-pds/i2Tn2.21.pds                
+ CT18NLO-pds/i2Tn2.22.pds                
+ CT18NLO-pds/i2Tn2.23.pds                
+ CT18NLO-pds/i2Tn2.24.pds                
+ CT18NLO-pds/i2Tn2.25.pds                
+ CT18NLO-pds/i2Tn2.26.pds                
+ CT18NLO-pds/i2Tn2.27.pds                
+ CT18NLO-pds/i2Tn2.28.pds                
+ CT18NLO-pds/i2Tn2.29.pds                
+ CT18NLO-pds/i2Tn2.30.pds                
+ CT18NLO-pds/i2Tn2.31.pds                
+ CT18NLO-pds/i2Tn2.32.pds                
+ CT18NLO-pds/i2Tn2.33.pds                
+ CT18NLO-pds/i2Tn2.34.pds                
+ CT18NLO-pds/i2Tn2.35.pds                
+ CT18NLO-pds/i2Tn2.36.pds                
+ CT18NLO-pds/i2Tn2.37.pds                
+ CT18NLO-pds/i2Tn2.38.pds                
+ CT18NLO-pds/i2Tn2.39.pds                
+ CT18NLO-pds/i2Tn2.40.pds                
+ CT18NLO-pds/i2Tn2.41.pds                
+ CT18NLO-pds/i2Tn2.42.pds                
+ CT18NLO-pds/i2Tn2.43.pds                
+ CT18NLO-pds/i2Tn2.44.pds                
+ CT18NLO-pds/i2Tn2.45.pds                
+ CT18NLO-pds/i2Tn2.46.pds                
+ CT18NLO-pds/i2Tn2.47.pds                
+ CT18NLO-pds/i2Tn2.48.pds                
+ CT18NLO-pds/i2Tn2.49.pds                
+ CT18NLO-pds/i2Tn2.50.pds                
+ CT18NLO-pds/i2Tn2.51.pds                
+ CT18NLO-pds/i2Tn2.52.pds                
+ CT18NLO-pds/i2Tn2.53.pds                
+ CT18NLO-pds/i2Tn2.54.pds                
+ CT18NLO-pds/i2Tn2.55.pds                
+ CT18NLO-pds/i2Tn2.56.pds                
+ CT18NLO-pds/i2Tn2.57.pds                
+ CT18NLO-pds/i2Tn2.58.pds                
+ alphas(m_z=91.187) =   0.11800089091252858     
+  
+ deltac =    5.3333333333333334E-007
+ deltas =    1.6000000000000001E-004
+  
+ RM48 INITIALIZED:        40           0         0
+  
+ lt_                                     
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  4  NCALL=     8192.
+                              IT=    0  ITMX=    5
+                              MDS=  1   ND=  50
+*** NO CUTS ***
+   1       1.018790     0.1661E-01   1.018790     0.1661E-01  0.000    
+   2       1.032135     0.5786E-02   1.030723     0.5436E-02 0.5700    
+   3       1.037102     0.3948E-02   1.034932     0.3183E-02 0.7336    
+   4       1.038670     0.3818E-02   1.036481     0.2441E-02 0.6765    
+   5       1.033957     0.3932E-02   1.035776     0.2074E-02 0.5815    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  4  NCALL=    76832.
+                              IT=    0  ITMX=   10
+                              MDS=  1   ND=  50
+   1       1.036735     0.1096E-02   1.036735     0.1096E-02  0.000    
+   2       1.035747     0.1109E-02   1.036247     0.7796E-03 0.4018    
+   3       1.037618     0.1109E-02   1.036701     0.6377E-03 0.7123    
+   4       1.037689     0.1097E-02   1.036951     0.5514E-03 0.6767    
+   5       1.035652     0.1086E-02   1.036686     0.4917E-03 0.7917    
+   6       1.038348     0.1075E-02   1.036974     0.4471E-03  1.029    
+   7       1.036935     0.1113E-02   1.036968     0.4149E-03 0.8578    
+   8       1.038114     0.1107E-02   1.037110     0.3885E-03 0.8693    
+   9       1.036102     0.1115E-02   1.037001     0.3669E-03 0.8516    
+  10       1.037972     0.1094E-02   1.037099     0.3479E-03 0.8357    
+   0.103710E+01 0.3479E-03
+ Error PDFs
+   0.103710E+01 0.3479E-03
+   0.104874E+01 0.3530E-03
+   0.102633E+01 0.3431E-03
+   0.103833E+01 0.3476E-03
+   0.103592E+01 0.3481E-03
+   0.102723E+01 0.3454E-03
+   0.104612E+01 0.3501E-03
+   0.106658E+01 0.3560E-03
+   0.101253E+01 0.3412E-03
+   0.104034E+01 0.3522E-03
+   0.103414E+01 0.3440E-03
+   0.102801E+01 0.3446E-03
+   0.104533E+01 0.3509E-03
+   0.103839E+01 0.3475E-03
+   0.103545E+01 0.3483E-03
+   0.102997E+01 0.3470E-03
+   0.105313E+01 0.3501E-03
+   0.101427E+01 0.3424E-03
+   0.105564E+01 0.3527E-03
+   0.103767E+01 0.3492E-03
+   0.103424E+01 0.3465E-03
+   0.105856E+01 0.3579E-03
+   0.101783E+01 0.3393E-03
+   0.103393E+01 0.3472E-03
+   0.104526E+01 0.3498E-03
+   0.104430E+01 0.3464E-03
+   0.101854E+01 0.3459E-03
+   0.104149E+01 0.3486E-03
+   0.103229E+01 0.3470E-03
+   0.104051E+01 0.3483E-03
+   0.103062E+01 0.3460E-03
+   0.104175E+01 0.3492E-03
+   0.103106E+01 0.3463E-03
+   0.103521E+01 0.3465E-03
+   0.102778E+01 0.3466E-03
+   0.104115E+01 0.3493E-03
+   0.103388E+01 0.3469E-03
+   0.104338E+01 0.3565E-03
+   0.102777E+01 0.3401E-03
+   0.104269E+01 0.3476E-03
+   0.103801E+01 0.3516E-03
+   0.104082E+01 0.3476E-03
+   0.103282E+01 0.3492E-03
+   0.103800E+01 0.3484E-03
+   0.105832E+01 0.3514E-03
+   0.103995E+01 0.3492E-03
+   0.106496E+01 0.3566E-03
+   0.104200E+01 0.3445E-03
+   0.102986E+01 0.3417E-03
+   0.105449E+01 0.3528E-03
+   0.104440E+01 0.3533E-03
+   0.103102E+01 0.3462E-03
+   0.104921E+01 0.3505E-03
+   0.103581E+01 0.3484E-03
+   0.104247E+01 0.3490E-03
+   0.104394E+01 0.3499E-03
+   0.103820E+01 0.3495E-03
+   0.102971E+01 0.3455E-03
+   0.104106E+01 0.3491E-03
+Cross section:   0.103710E+01  +-  0.3479E-03 pb

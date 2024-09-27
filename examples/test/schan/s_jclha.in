@@ -1,0 +1,27 @@
+2 		! 0:lo   1:nlo   2:sum=lo+nlo
+3 		! 0:t pt 1:t transverse mass 2:b pt 3:t-b invariant mass 4:mt 5:shat 6:mw
+0 		! 0:mu   1:2*mu   2:mu/2
+5 		! initial number of vegas iterations LO
+10000 		! initial number of vegas points LO
+5 		! initial number of vegas iterations NLO 2 body
+12000 		! initial number of vegas points NLO 2 body
+6 		! initial number of vegas iterations NLO 3 body
+100000          ! initial number of vegas points NLO 3 body
+175d0 		! top quark mass in GeV
+80.4d0 		! W boson mass in GeV
+1.96d0 		! sqrt(S) in TeV
+2 		! 1,2: p-pbar  3: p-p   collider type
+CT14nlo 0 	! lhapdf_set number
+1 		! 1: top production
+0 		! 1: anti-top production
+1d0 		! rCone
+1d0 		! rsep
+2 		! 0: no cuts 1: 2j 2: >=1 j 3: 1j (nc, dc, jc, tc)
+0               ! 0: no smearing 1: smear jets 2: smear jets and top
+2 		! 0: delta_s 1:delta_c 2:deltac=deltas/a
+9 		! imin
+9 		! imax
+300d0           ! deltac = deltas/a
+s_              ! run prefix string (prepended to all output files)
+15d0 0d0 15d0   ! b, t, j_2 ptmin cuts
+2.5d0 0d0 2.5d0 ! b, t, j_2 etamax cuts

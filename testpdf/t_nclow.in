@@ -1,0 +1,33 @@
+2 		! 0:lo   1:nlo   2:sum=lo+nlo
+6 		! 0:t pt 1:t transverse mass 2:j pt 3:t-j invariant mass 4:mt 5:shat 6:Q^2 7:Q^2+mt^2 8:M_jj 9:Q^2+M_jj^2 10:MT_jj 11:Q^2+MT_jj^2 12:HT 13:MT (fac)
+0 		! 0:mu   #=100*fraction
+7 		! 0:t pt 1:t transverse mass 2:j pt 3:t-j invariant mass 4:mt 5:shat 6:Q^2 7:Q^2+mt^2 8:M_tj 9:Q^2+M_tj^2 10:MT_tj 11:Q^2+MT_tj^2 12:HT 13:MT (fac)
+0 		! 0:mu   #=100*fraction
+6 		! 0:t pt 1:t transverse mass 2:j pt 3:t-j invariant mass 4:mt 5:shat 6:Q^2 7:Q^2+mt^2 8:M_jj 9:Q^2+M_jj^2 10:MT_jj 11:Q^2+MT_jj^2 12:HT 13:MT (ren)
+0 		! 0:mu   #=100*fraction
+7 		! 0:t pt 1:t transverse mass 2:j pt 3:t-j invariant mass 4:mt 5:shat 6:Q^2 7:Q^2+mt^2 8:M_tj 9:Q^2+M_tj^2 10:MT_tj 11:Q^2+MT_tj^2 12:HT 13:MT (ren)
+0 		! 0:mu   #=100*fraction
+5 		! initial number of vegas iterations LO
+1000           ! initial number of vegas points LO
+5 		! initial number of vegas iterations NLO 2 body
+2000           ! initial number of vegas points NLO 2 body
+6 		! initial number of vegas iterations NLO 3 body
+20000          ! initial number of vegas points NLO 3 body
+175d0 		! top quark mass in GeV
+80.4d0 		! W boson mass in GeV
+1.96d0 		! sqrt(S) in TeV
+2 		! 1,2: p-pbar  3: p-p   collider type
+58 		! pdf set CTEQ 4,5,6
+1 		! 1: top production
+0 		! 1: anti-top production
+1d0 		! rCone
+1d0 		! rsep
+0 		! 0: no cuts 1: 2j 2: >=1 j 3: 1j (nc, dc, jc, tc)
+0               ! 0: no smearing 1: smear jets 2: smear jets and top
+2 		! 0: delta_s 1:delta_c 2:deltac=deltas/a
+6 		! imin
+6 		! imax
+300d0           ! deltac = deltas/a
+t_              ! run prefix string (prepended to all output files)
+15d0 0d0 15d0   ! j_1, t, j_2 ptmin cuts
+2.5d0 0d0 2.5d0 ! j_1, t, j_2 etamax cuts

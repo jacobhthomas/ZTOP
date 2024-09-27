@@ -1,0 +1,105 @@
+ 
+                   ====== ======= ====== ======     =======
+                       /     |    |    | |    |        |   
+                      /      |    |    | |    |        |   
+                     /       |    |    | |====  ----   |   
+                    /        |    |    | |             |   
+                   ======    |    ====== |             |   
+ 
+                    t-channel single-top-quark production  
+                       Copyright 2001, by Zack Sullivan    
+ Version 1.1
+ 
+ Based on: 1. B.W. Harris, E. Laenen, L. Phaf, Z. Sullivan, and S. Weinzierl,
+               Phys. Rev. D 66, 054024 (2002) [arXiv:hep-ph/0207055].
+           2. Zack Sullivan, Phys. Rev. D 70, 114012 (2004)
+               [arXiv:hep-ph/0408049].
+ 
+ Input parameters:
+ norder    =  0
+ iscale_fl =  6
+ isclf     =  0
+ iscaleb_fh=  7
+ isclfb    =  0
+ irscale_rl=  6
+ irsclf    =  0
+ irscaleb_rh=  7
+ irsclfb   =  0
+ its1      =  5
+ pts1      =  10000
+ its2      =  5
+ pts2      =  20000
+ its3      =  6
+ pts3      =  200000
+ top mass  =   175.
+ w mass    =   80.4
+ ecm       =   1.96
+ icollide  =  2
+ iset      =  53
+ itop      =  1
+ iatop     =  0
+ rcone     =   1.
+ rsep      =   1.
+ cutflag   =  3
+ smearing  =  0
+ id        =  2
+ imin      =  6
+ imax      =  6
+ afac      =   300.
+ pref      = lt_                                     
+ No smearing.
+  
+ sqrt(S) =   1960.
+  
+ CKM matrix Vij
+   0.9751  0.2215  0.0035
+   0.2210  0.9743  0.0410
+   0.0000  0.0000  1.0000
+  
+Using CTEQ5, table: cteq5l.tbl    
+ alphas(m_z=91.187) =   0.127316785
+  
+ deltac =   5.33333333E-07
+ deltas =   0.00016
+  
+ RM48 INITIALIZED:        40           0         0
+  
+ lt_                                     
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  4  NCALL=     8192.
+                              IT=    0  ITMX=    5
+                              MDS=  1   ND=  50
+  Particle       3       4       5
+      Et >    15.0     0.0    15.0
+      Et <     0.0     0.0     0.0
+     Eta >     0.0     0.0     0.0
+     Eta <     2.5     0.0     2.5
+     d R >     0.0     0.7     0.7
+     d R >     0.0     0.0     0.7
+     d R >     0.0     0.0     0.0
+** Only 1 jet **
+   1      0.9663875     0.1643E-01  0.9663875     0.1643E-01  0.000    
+   2      0.9716161     0.5581E-02  0.9710804     0.5274E-02 0.9040E-01
+   3      0.9778536     0.4147E-02  0.9752949     0.3251E-02 0.5550    
+   4      0.9742845     0.4034E-02  0.9748958     0.2530E-02 0.3823    
+   5      0.9738252     0.4168E-02  0.9746069     0.2163E-02 0.2986    
+
+
+
+ INPUT PARAMETERS FOR VEGAS:  NDIM=  4  NCALL=    76832.
+                              IT=    0  ITMX=   10
+                              MDS=  1   ND=  50
+   1      0.9750254     0.1166E-02  0.9750254     0.1166E-02  0.000    
+   2      0.9730322     0.1180E-02  0.9740430     0.8294E-03  1.443    
+   3      0.9752733     0.1174E-02  0.9744533     0.6774E-03  1.088    
+   4      0.9758942     0.1164E-02  0.9748188     0.5855E-03  1.107    
+   5      0.9732891     0.1168E-02  0.9745122     0.5234E-03  1.173    
+   6      0.9751239     0.1145E-02  0.9746181     0.4760E-03 0.9853    
+   7      0.9743247     0.1172E-02  0.9745765     0.4410E-03 0.8301    
+   8      0.9766369     0.1166E-02  0.9748354     0.4125E-03  1.103    
+   9      0.9736592     0.1176E-02  0.9747068     0.3892E-03  1.076    
+  10      0.9759542     0.1148E-02  0.9748357     0.3686E-03  1.074    
+   0.974836E+00 0.3686E-03
+Cross section:   0.974836E+00  +-  0.3686E-03 pb
