@@ -53,7 +53,7 @@ for any use or correctness.
 What you will need/want to edit:
 
 makefile         - choose compiler options
-cteqfastpdf.f    - set explicit path to CTEQ PDF tables (I've included 5L, 5M1)
+cteqpdffastpdf.f    - set explicit path to CTEQ PDF tables (I've included 5L, 5M1)
                    NOTE: This file is a VERY fast interface to the CTEQ PDF
                     tables, which speeds up PDF evaluation by a factor of 10.  
                     cf. Zack Sullivan, ``Fast evaluation of CTEQ parton
@@ -375,4 +375,240 @@ Phase space generation is separated from the momentum-dependent part of the
  out fairly transparently.
 
 ----------------------------------------------------------------------------
+Jacob's Guide
 
+Hi learner! Here's a semi-brief introduction to ZTOP, a Fortran program for single-top quark production
+By the end of this, you should understand the structure and functionality of ZTOP, making it easier for you to get started with simulations, modifications, and optimizations.
+
+0. Overview
+
+ZTOP calculates the fully differential spin-averaged production of a top quark plus one jet at next-to-leading order (NLO). The program uses phase space slicing with two cutoffs, as detailed in the following papers:
+
+B.W. Harris, E. Laenen, L. Phaf, Z. Sullivan, and S. Weinzierl, Phys. Rev. D 66, 054024 (2002) [arXiv:hep-ph/0207055].
+Zack Sullivan, Phys. Rev. D 70, 114012 (2004) [arXiv:hep-ph/0408049].
+
+1. Compiling
+In setting up the compilation for the ZTOP program, you will need to edit the following files:
+
+makefile: This is where compiler options are chosen.
+  Purpose: Compiles the project and links the necessary object files to create the executables ZTOPschan.x and ZTOPtchan.x.
+  Key Components:
+    Compiler and Flags: Specifies the Fortran compiler (gfortran or ifort) and compilation flags.
+    Object Files: Lists the object files (.o) required for different executables.
+    Targets: Defines the targets for the executables and the rules for compiling the source files.
+cteqpdflibfast.f: Set the explicit path to CTEQ PDF tables.
+
+While we're here, this is a good time to preview all the source files used in this program:
+
+  vsup.f: Contains subroutines for supporting functions, including Monte Carlo integration using the VEGAS algorithm.
+  dilog.f: Implements the dilogarithm function, which is used in various calculations.
+  histlib.f: Provides a simple histogramming package for data analysis.
+  cteqpdflibfast.f: Contains routines for accessing and interpolating Parton Distribution Functions (PDFs) from the CTEQ collaboration.
+  misc.f, lum.f, smearing.f, jetfinder1.f: Additional utility functions and subroutines for various tasks in the simulation.
+  smain.f, scuts.f, shist.f, sevent_lo2.f, sevent_nlo2.f, sevent_nlo3.f, ssig_lo2.f, ssig_nlo2.f, ssig_nlo3.f: Source files for simulating single-top quark production in the s-channel.
+  tmain.f, tcuts.f, thist.f, tevent_lo2.f, tevent_nlo2.f, tevent_nlo3.f, tsig_lo2.f, tsig_nlo2.f, tsig_nlo3.f: Source files for simulating single-top quark production in the t-channel.
+
+  Recently, changes have been made to use the central PDF values, resulting in the following files and their respective changes:
+
+pftopdgn.f: Interface for the CTEQ PDF routines, forwarding calls to structm and partonx12.
+partonx12structmMulti.f: Contains the partonx12 function and other routines for accessing PDF values.
+tmainpdf.f: Main program for t-channel single-top-quark production, setting up the simulation and calling various subroutines.
+(which are associated with the executables ZTOPtchanPDF.x and ZTOPschanPDF.x)
+
+The included makefile has good choices of compiler flags for the g77 and Intel compilers. To get the executables ZTOPschan.x and ZTOPtchan.x, simply type: make
+
+Running Tests
+You should run some tests by changing to the examples/ subdirectory and executing the file test.bat. This will verify that the distributions placed in the subdirectories test/schan/ and test/tchan/ agree within round-off errors to the ones in schan/ and tchan/.
+
+3. s-channel Production
+
+Executable: ZTOPschan.x
+Sample Input Files: ls_nc.in, ls_dc.in, ls_jc.in, ls_tc.in, s_nc.in, s_dc.in, s_jc.in, s_tc.in
+
+Input File Structure:
+
+Line 1: Pick order of calculation
+
+  1: LO
+  2: NLO correction only
+  3: Full NLO
+
+Line 2: Base factorization and renormalization scale
+
+  0: PT of top quark
+  1: Top quark transverse mass
+  2: PT of highest-PT jet
+  3: Top quark-b jet invariant mass
+  4: Top-quark mass
+  5: s^hat
+  6: W boson mass
+
+Line 3: Modifies line 2
+
+  0: Do not modify the scales above
+  1: 2*(line 2)
+  2: (line 2)/2
+
+Lines 4, 6, 8: Set the initial number of iterations for VEGAS for LO, NLO 2 body, and NLO 3 body.
+
+Lines 5, 7, 9: Set the initial number of points for VEGAS for LO, NLO 2 body, and NLO 3 body.
+
+Line 10: Top-quark mass in GeV (e.g., 175d0).
+
+Line 11: W boson mass in GeV (e.g., 80.4d0).
+
+Line 12: sqrt(S) in TeV (e.g., 1.96d0 for Tevatron Run II).
+
+Line 13: Collider type
+
+  1,2: p-pbar for Tevatron
+  3: p-p for LHC
+
+Line 14: CTEQ PDF set
+
+  53: CTEQ 5L (LO)
+  58: CTEQ 5M1 (NLO)
+  64: CTEQ 6L1 (LO)
+  61: CTEQ 6M (NLO)
+
+Line 15: Calculate t production?
+
+  1: Yes
+  0: No
+
+Line 16: Calculate t_bar production?
+
+  1: Yes
+  0: No
+
+Line 17: k_T cone size (e.g., 1d0).
+
+Line 18: k_T cone r_sep (set equal to line 17).
+
+Line 19: Cuts
+
+  0: No cuts (nc)
+  1: Require 2 jets (dc)
+  2: Require at least 1 jet (jc)
+  3: Require exactly 1 jet (tc)
+
+Line 20: Smearing
+
+  0: None
+  1: Gaussian smearing on jets
+  2: Smear top quark (not recommended)
+
+Line 21: Vary soft and collinear cut parameters
+
+  0: Vary delta_soft
+  1: Vary delta_collinear
+  2: Vary delta_collinear = delta_soft/(line 24)
+
+Lines 22-23: Loop over minimum to maximum exponents (e.g., 6).
+
+Line 24: Set collinear/soft factor (e.g., 300d0).
+
+Line 25: Prefix string for output files.
+
+Line 26: PT_min cuts for jet_1, top quark, jet_2 (e.g., 15d0 0d0 15d0).
+
+Line 27: Eta_max cuts for jet_1, top quark, jet_2 (e.g., 2.5d0 0d0 2.5d0).
+
+4. t-channel Production
+
+Executable: ZTOPtchan.x
+Sample Input Files: lt_nc.in, lt_dc.in, lt_jc.in, lt_tc.in, t_nc.in, t_dc.in, t_jc.in, t_tc.in
+
+Input File Structure:
+
+Line 1: Pick order of calculation
+
+  1: LO
+  2: NLO correction only
+  3: Full NLO
+
+Lines 2, 4, 6, 8: Base factorization and renormalization scales for light-quark and heavy-quark lines.
+
+Lines 3, 5, 7, 9: Modify lines 2, 4, 6, 8.
+
+Lines 10, 12, 14: Set the initial number of iterations for VEGAS for LO, NLO 2 body, and NLO 3 body.
+
+Lines 11, 13, 15: Set the initial number of points for VEGAS for LO, NLO 2 body, and NLO 3 body.
+
+Line 16: Top-quark mass in GeV (e.g., 175d0).
+
+Line 17: W boson mass in GeV (e.g., 80.4d0).
+
+Line 18: sqrt(S) in TeV (e.g., 1.96d0 for Tevatron Run II).
+
+Line 19: Collider type
+
+  1,2: p-pbar for Tevatron
+  3: p-p for LHC
+
+Line 20: CTEQ PDF set
+
+  53: CTEQ 5L (LO)
+  58: CTEQ 5M1 (NLO)
+  64: CTEQ 6L1 (LO)
+  61: CTEQ 6M (NLO)
+
+Line 21: Calculate t production?
+
+  1: Yes
+  0: No
+
+Line 22: Calculate t_bar production?
+
+  1: Yes
+  0: No
+
+Line 23: k_T cone size (e.g., 1d0).
+
+Line 24: k_T cone r_sep (set equal to line 23).
+
+Line 25: Cuts
+
+  0: No cuts (nc)
+  1: Require 2 jets (dc)
+  2: Require at least 1 jet (jc)
+  3: Require exactly 1 jet (tc)
+
+Line 26: Smearing
+
+  0: None
+  1: Gaussian smearing on jets
+  2: Smear top quark (not recommended)
+
+Line 27: Vary soft and collinear cut parameters
+
+  0: Vary delta_soft
+  1: Vary delta_collinear
+  2: Vary delta_collinear = delta_soft/(line 30)
+
+Lines 28-29: Loop over minimum to maximum exponents (e.g., 6).
+
+Line 30: Set collinear/soft factor (e.g., 300d0).
+
+Line 31: Prefix string for output files.
+
+Line 32: PT_min cuts for jet_1, top quark, jet_2 (e.g., 15d0 0d0 15d0).
+
+Line 33: Eta_max cuts for jet_1, top quark, jet_2 (e.g., 2.5d0 0d0 2.5d0).
+
+5. Various Notes
+  Cut Schemes: The logic for cuts is in scuts.f and tcuts.f.
+  Histogramming: Performed in shist.f and thist.f.
+  CKM Matrix: Defined in smain.f and tmain.f.
+  PDF Setup: Edit smain.f or tmain.f to use any set that provides a PFTOPDG interface.
+  Phase Space Generation: Separated from the momentum-dependent part of the matrix element code.
+
+Summary
+  Compilation: Managed by the Makefile.
+  Initialization: Main programs (smain.f, tmain.f) set up the simulation.
+  PDF Access: Handled by pftopdgn.f and partonx12structmMulti.f.
+  Monte Carlo Integration: Performed by vsup.f.
+  Event Generation: Implemented in files like tevent_lo2.f.
+  Histogramming: Managed by histlib.f.
+  Output: Controlled by the main programs and input files.
+This structure allows for a modular and organized approach to simulating particle interactions and analyzing the results. Happy simulating!
