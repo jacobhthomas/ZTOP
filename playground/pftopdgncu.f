@@ -1,4 +1,3 @@
-
 c======================================================================
       subroutine pftopdgn(x,q,dxpdf)
 c======================================================================
@@ -32,8 +31,8 @@ c      double precision x,q,dxpdf(-6:6)
 c
 c     External
 c
-      double precision CtqPdf, partonx12
-      external CtqPdf, partonx12
+      double precision CtqPdf
+      external CtqPdf
 
       integer MXX, MXQ, MXF, MaxVal, MXPQX, MXPQXTOT
       PARAMETER (MXX = 201, MXQ = 40, MXF = 6, MaxVal=4)
@@ -43,7 +42,18 @@ c
       double precision updmulti(MXPQXTOT)
       common / ctmulti / updmulti, icallset
 
-      c enter results in common block from cuda into fortran. needs to be written in fortran
+      integer iSetch, iParton, nx, nt, npts, NfMx, MxVal
+      double precision XX, QQ, qB, ret
+      cudaTextureObject_t xTex, tTex, pTex
+      external partonx12_wrapper_
+
+      iSetch = 1  ! Example value, set appropriately
+      nx = MXX
+      nt = MXQ
+      npts = MXPQX
+      NfMx = MXF
+      MxVal = MaxVal
+      qB = 1.0  ! Example value, set appropriately
 
 c     ----------
 c     Begin Code
@@ -54,14 +64,30 @@ c     &     dxpdf(-3),dxpdf(-4),dxpdf(-5),dxpdf(-6),dxpdf(0))
 
       do icallset = 0, 58
          dxpdf(-6 + 13*icallset) = 0d0
-         dxpdf(-5 + 13*icallset) = x*partonx12(5,x,q)
-         dxpdf(-4 + 13*icallset) = x*partonx12(4,x,q)
-         dxpdf(-3 + 13*icallset) = x*partonx12(3,x,q)
-         dxpdf(-2 + 13*icallset) = x*partonx12(-1,x,q)
-         dxpdf(-1 + 13*icallset) = x*partonx12(-2,x,q)
-         dxpdf( 0 + 13*icallset) = x*partonx12(0,x,q)
-         dxpdf( 1 + 13*icallset) = x*partonx12(2,x,q)
-         dxpdf( 2 + 13*icallset) = x*partonx12(1,x,q)
+         iParton = 5
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf(-5 + 13*icallset) = x * ret
+         iParton = 4
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf(-4 + 13*icallset) = x * ret
+         iParton = 3
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf(-3 + 13*icallset) = x * ret
+         iParton = -1
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf(-2 + 13*icallset) = x * ret
+         iParton = -2
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf(-1 + 13*icallset) = x * ret
+         iParton = 0
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf( 0 + 13*icallset) = x * ret
+         iParton = 2
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf( 1 + 13*icallset) = x * ret
+         iParton = 1
+         call partonx12_wrapper_(iSetch, iParton, nx, nt, npts, NfMx, MxVal, x, q, qB, xTex, tTex, pTex, ret)
+         dxpdf( 2 + 13*icallset) = x * ret
          dxpdf( 3 + 13*icallset) = dxpdf(-3 + 13*icallset)
          dxpdf( 4 + 13*icallset) = dxpdf(-4 + 13*icallset)
          dxpdf( 5 + 13*icallset) = dxpdf(-5 + 13*icallset)
@@ -70,4 +96,3 @@ c     &     dxpdf(-3),dxpdf(-4),dxpdf(-5),dxpdf(-6),dxpdf(0))
 c
       return
       end
-
